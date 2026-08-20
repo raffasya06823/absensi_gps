@@ -38,7 +38,8 @@ define('DB_CHARSET', 'utf8mb4');
 // ── BASE_PATH untuk URL helper ──
 // Railway: kosong string '' karena deploy di root domain
 // XAMPP lokal: '/absensi_gps'
-define('APP_BASE_PATH', getenv('BASE_PATH') ?: '/absensi_gps');
+$env_base_path = getenv('BASE_PATH');
+define('APP_BASE_PATH', $env_base_path !== false ? $env_base_path : '/absensi_gps');
 define('APP_ENV',       getenv('APP_ENV')   ?: 'development');
 
 // ── Koneksi PDO ──
