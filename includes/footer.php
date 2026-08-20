@@ -2,7 +2,7 @@
 /**
  * SIMAS-GPS — Footer Global
  */
-$base = (function_exists('base_url')) ? base_url() : '/absensi_gps';
+$base = (function_exists('base_url')) ? base_url() : (defined('APP_BASE_PATH') ? APP_BASE_PATH : '/absensi_gps');
 $user_role = $_SESSION['role'] ?? '';
 ?>
 

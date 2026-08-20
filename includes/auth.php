@@ -22,7 +22,9 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) >
     session_destroy();
     session_start();
     $_SESSION['flash']['error'] = 'Sesi Anda telah berakhir karena tidak ada aktivitas. Silakan login kembali.';
-    header('Location: /absensi_gps/login.php');
+    // Gunakan fungsi base_url() tapi karena mungkin belum dideklarasikan di baris ini, pakai konstanta APP_BASE_PATH
+    $redirect_path = defined('APP_BASE_PATH') ? APP_BASE_PATH : '/absensi_gps';
+    header('Location: ' . $redirect_path . '/login.php');
     exit;
 }
 $_SESSION['last_activity'] = time(); // update last activity time stamp
