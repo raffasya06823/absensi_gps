@@ -1,0 +1,3 @@
+# Folder ini digunakan untuk menyimpan file upload bukti izin siswa.
+# File .gitkeep ini memastikan folder ini tetap ada di Git walaupun kosong.
+# File upload yang sebenarnya sudah diexclude via .gitignore

@@ -1,0 +1,35 @@
+# ============================================
+# SIMAS-GPS — .gitignore
+# ============================================
+
+# Environment & Konfigurasi Sensitif
+.env
+config/database.php
+
+# Upload siswa (foto bukti izin) — jangan push ke GitHub
+uploads/*
+!uploads/.gitkeep
+
+# Log files
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Composer (jika ada)
+vendor/
+
+# Node modules (jika ada)
+node_modules/
+
+# Railway / deployment artifacts
+.nixpacks/
