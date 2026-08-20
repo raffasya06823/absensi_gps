@@ -15,9 +15,31 @@ if (($_GET['key'] ?? '') !== SETUP_KEY) {
     die('<h2 style="font-family:sans-serif;color:red">403 Forbidden — Setup key salah.</h2>');
 }
 
-require_once __DIR__ . '/config/database.php';
+// Debug: tampilkan ENV yang dibaca
+$db_host = getenv('DB_HOST') ?: $_ENV['DB_HOST'] ?? $_SERVER['DB_HOST'] ?? 'NOT SET';
+$db_port = getenv('DB_PORT') ?: '3306';
+$db_name = getenv('DB_NAME') ?: $_ENV['DB_NAME'] ?? $_SERVER['DB_NAME'] ?? 'NOT SET';
+$db_user = getenv('DB_USER') ?: $_ENV['DB_USER'] ?? $_SERVER['DB_USER'] ?? 'NOT SET';
+$db_pass = getenv('DB_PASS') ?: $_ENV['DB_PASS'] ?? $_SERVER['DB_PASS'] ?? 'NOT SET';
 
-$pdo = getDB();
+// Coba koneksi langsung tanpa require database.php dulu
+try {
+    $dsn = "mysql:host={$db_host};port={$db_port};dbname={$db_name};charset=utf8mb4";
+    $pdo = new PDO($dsn, $db_user, $db_pass, [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
+} catch (PDOException $e) {
+    die("<pre style='font-family:monospace;background:#1e293b;color:#f87171;padding:20px;border-radius:8px'>"
+      . "❌ DB Connection FAILED\n\n"
+      . "Host : {$db_host}\n"
+      . "Port : {$db_port}\n"
+      . "DB   : {$db_name}\n"
+      . "User : {$db_user}\n"
+      . "Pass : " . (strlen($db_pass) > 3 ? substr($db_pass, 0, 3).'***' : $db_pass) . "\n\n"
+      . "Error: " . $e->getMessage()
+      . "</pre>");
+}
 $results = [];
 $errors  = [];
 
