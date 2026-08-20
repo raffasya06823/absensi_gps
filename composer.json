@@ -1,0 +1,11 @@
+{
+    "name": "raffasya06823/absensi-gps",
+    "description": "Sistem Informasi Monitoring Absensi Siswa Berbasis GPS",
+    "require": {
+        "php": ">=8.1",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-mbstring": "*",
+        "ext-json": "*"
+    }
+}
