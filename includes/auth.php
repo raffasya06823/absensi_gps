@@ -34,7 +34,9 @@ $_SESSION['last_activity'] = time(); // update last activity time stamp
 // ─────────────────────────────────────────────────────────
 
 function base_url(): string {
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') 
+                || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+    $protocol = $is_https ? 'https' : 'http';
     $host     = $_SERVER['HTTP_HOST'] ?? 'localhost';
     // APP_BASE_PATH didefinisikan di config/database.php, baca dari ENV
     // Railway: '' (root domain) | XAMPP lokal: '/absensi_gps'

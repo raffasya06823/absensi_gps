@@ -19,7 +19,9 @@ $user = [
 // Base URL helper (fallback jika auth.php belum di-include)
 if (!function_exists('base_url')) {
     function base_url(): string {
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') 
+                    || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+        $protocol = $is_https ? 'https' : 'http';
         return $protocol . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . (defined('APP_BASE_PATH') ? APP_BASE_PATH : '/absensi_gps');
     }
 }
